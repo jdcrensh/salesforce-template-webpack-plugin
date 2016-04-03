@@ -1,0 +1,14 @@
+- var _ = require('lodash');
+
+doctype xml
+package(xmlns=htmlWebpackPlugin.options._xmlns)
+	- var types = _.keys(htmlWebpackPlugin.options._package);
+	- types.sort()
+	each type in types
+		- var members = htmlWebpackPlugin.options._package[type];
+		- members.sort();
+		types
+			each member in members
+				members= member
+			name= type
+	version= htmlWebpackPlugin.options.apiVersion

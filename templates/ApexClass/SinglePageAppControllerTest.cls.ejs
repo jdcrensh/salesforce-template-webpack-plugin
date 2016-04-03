@@ -1,0 +1,19 @@
+@isTest class <%= htmlWebpackPlugin.options.controller.apiName %>Test {
+
+	@testSetup static void setup() {
+		// ...
+	}
+
+	@isTest static void testAction() {
+		Map<String, Object> state = new Map<String, Object> {
+			'a' => 1, 'b' => 2, 'c' => 3
+		};
+
+		Test.startTest();
+		Test.setCurrentPage(Page.<%= htmlWebpackPlugin.options.apiName %>);
+		state = <%= htmlWebpackPlugin.options.controller.apiName %>.action(state);
+		Test.stopTest();
+
+		System.assertNotEquals(null, state);
+	}
+}

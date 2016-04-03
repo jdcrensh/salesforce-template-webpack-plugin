@@ -1,0 +1,33 @@
+{
+  "name": "salesforce-template-webpack-plugin",
+  "version": "0.1.0",
+  "description": "Webpack plugin for generating Salesforce metadata",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "jdcrensh/salesforce-template-webpack-plugin",
+  "keywords": [
+    "salesforce",
+    "sfdc",
+    "sf",
+    "visualforce",
+    "deploy",
+    "webpack",
+    "plugin"
+  ],
+  "author": "jdcrensh@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jdcrensh/salesforce-template-webpack-plugin/issues"
+  },
+  "homepage": "https://github.com/jdcrensh/salesforce-template-webpack-plugin#readme",
+  "dependencies": {
+    "html-webpack-plugin": "^2.15.0",
+    "lodash": "^4.7.0"
+  },
+  "peerDependencies": {
+    "jade": "^1.11.0",
+    "jade-loader": "^0.8.0"
+  }
+}
