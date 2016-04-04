@@ -1,0 +1,57 @@
+- var path = require('path');
+- var opts = htmlWebpackPlugin.options
+- var files = htmlWebpackPlugin.files
+
+doctype xml
+apex:page(
+	controller='#{opts.controller.apiName}'
+	docType='html-5.0'
+	applyHtmlTag='false'
+	applyBodyTag='false'
+	showHeader='false'
+	standardStylesheets='false'
+)
+	html(lang='en')
+		head
+			meta(charset='utf-8')/
+			title= opts.title
+
+			if files.favicon
+				link(rel='shortcut icon' href=files.favicon)/
+
+			if opts.mobile
+				meta(name='viewport' content='width=device-width, initial-scale=1')/
+
+			each file in files.css
+				- var basename = path.basename(file);
+				link(href="#{opts.proxyUrl}/#{basename}" rel='stylesheet')/
+
+			if opts.baseHref
+				base(href=opts.baseHref)/
+
+		body
+			if opts.unsupportedBrowser
+				style
+					| .unsupported-browser { display: none; }
+				.unsupported-browser
+					| Sorry, your browser is not supported. Please upgrade to
+					| the latest version or switch your browser to use this site.
+					| See <a href='http://outdatedbrowser.com/'>outdatedbrowser.com</a>
+					| for options.
+			
+			if opts.appMountId
+				div(id=opts.appMountId)
+			
+			if opts.appMountIds && opts.appMountIds.length > 0
+				each mountId in opts.appMountIds
+					div(id=mountId)
+			
+			if opts.window
+				script
+					each value, varName in opts.window
+						| window['#{varName}'] = #{JSON.stringify(value)};
+						| 
+		
+			each chunk in files.chunks
+				- var basename = path.basename(chunk.entry);
+				script(src="#{opts.proxyUrl}/#{basename}")
