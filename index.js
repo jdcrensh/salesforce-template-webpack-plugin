@@ -132,7 +132,7 @@ Plugin.prototype.SinglePageAppDev = function (options, compiler) {
 	if (opts.apiName == null) {
 		opts.apiName = 'SinglePageApp';
 	}
-	opts.filename = this.getFullPath(`${options.apiName}.page`);
+	opts.filename = path.join(this.options.outputDir, `${options.apiName}.page`);
 
 	opts.controller = _.extend({
 		apiName: options.apiName + 'Controller',
