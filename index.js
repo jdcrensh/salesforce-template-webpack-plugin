@@ -5,8 +5,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const DEFAULT_VERSION = '36.0';
 
-const TEMPLATE_DIR = path.join(__dirname, 'templates');
-
 const zipDir = (dir, dest, callback) => {
 	var fs = require('fs');
 	var archiver = require('archiver');
@@ -39,6 +37,8 @@ function Plugin(options) {
 	}, this.options);
 };
 
+Plugin.prototype.TEMPLATE_DIR = path.join(__dirname, 'templates');
+
 Plugin.prototype.apply = function (compiler) {
 	this.options.files.forEach((options) => {
 		this[options.template](_.extend(this.options, options), compiler);
@@ -69,7 +69,7 @@ Plugin.prototype.addPackageMember = function (type, member) {
 Plugin.prototype.Package = function (options, compiler) {
 	var opts = _.clone(options);
 	opts.inject = false;
-	opts.template = path.join(TEMPLATE_DIR, 'package.xml.jade');
+	opts.template = path.join(this.TEMPLATE_DIR, 'package.xml.jade');
 	opts.filename = path.join(this.options.outputDir, 'package.xml');
 
 	new HtmlWebpackPlugin(opts).apply(compiler);
@@ -78,7 +78,7 @@ Plugin.prototype.Package = function (options, compiler) {
 Plugin.prototype.ApexPageMeta = function (options, compiler) {
 	var opts = _.clone(options);
 	opts.inject = false;
-	opts.template = path.join(TEMPLATE_DIR, 'ApexPage', 'meta.xml.jade');
+	opts.template = path.join(this.TEMPLATE_DIR, 'ApexPage', 'meta.xml.jade');
 	opts.filename = this.getFullPath('pages', `${path.basename(options.filename)}-meta.xml`);
 	opts._package = this.addPackageMember('ApexPage', path.basename(options.filename, '.page'));
 
@@ -88,7 +88,7 @@ Plugin.prototype.ApexPageMeta = function (options, compiler) {
 Plugin.prototype.SinglePageApp = function (options, compiler) {
 	var opts = _.clone(options);
 	opts.inject = false;
-	opts.template = path.join(TEMPLATE_DIR, 'ApexPage', 'SinglePageApp.page.jade');
+	opts.template = path.join(this.TEMPLATE_DIR, 'ApexPage', 'SinglePageApp.page.jade');
 
 	if (opts.apiName == null) {
 		opts.apiName = 'SinglePageApp';
@@ -126,7 +126,7 @@ Plugin.prototype.SinglePageApp = function (options, compiler) {
 Plugin.prototype.ApexClassMeta = function (options, compiler) {
 	var opts = _.clone(options);
 	opts.inject = false;
-	opts.template = path.join(TEMPLATE_DIR, 'ApexClass', 'meta.xml.jade');
+	opts.template = path.join(this.TEMPLATE_DIR, 'ApexClass', 'meta.xml.jade');
 	opts.filename = this.getFullPath('classes', `${path.basename(options.filename)}-meta.xml`);
 	opts._package = this.addPackageMember('ApexClass', path.basename(options.filename, '.cls'));
 
@@ -136,7 +136,7 @@ Plugin.prototype.ApexClassMeta = function (options, compiler) {
 Plugin.prototype.SinglePageAppController = function (options, compiler) {
 	var opts = _.clone(options);
 	opts.inject = false;
-	opts.template = path.join(TEMPLATE_DIR, 'ApexClass', 'SinglePageAppController.cls.ejs');
+	opts.template = path.join(this.TEMPLATE_DIR, 'ApexClass', 'SinglePageAppController.cls.ejs');
 	opts.filename = this.getFullPath('classes', `${options.controller.apiName}.cls`);
 
 	switch (opts.controller.sharing) {
@@ -166,7 +166,7 @@ Plugin.prototype.SinglePageAppController = function (options, compiler) {
 Plugin.prototype.SinglePageAppControllerTest = function (options, compiler) {
 	var opts = _.clone(options);
 	opts.inject = false;
-	opts.template = path.join(TEMPLATE_DIR, 'ApexClass', 'SinglePageAppControllerTest.cls.ejs');
+	opts.template = path.join(this.TEMPLATE_DIR, 'ApexClass', 'SinglePageAppControllerTest.cls.ejs');
 	opts.filename = this.getFullPath('classes', `${options.controller.apiName}Test.cls`);
 
 	new HtmlWebpackPlugin(opts).apply(compiler);
@@ -179,7 +179,7 @@ Plugin.prototype.SinglePageAppControllerTest = function (options, compiler) {
 Plugin.prototype.StaticResourceMeta = function (options, compiler) {
 	var opts = _.clone(options);
 	opts.inject = false;
-	opts.template = path.join(TEMPLATE_DIR, 'StaticResource', 'meta.xml.jade');
+	opts.template = path.join(this.TEMPLATE_DIR, 'StaticResource', 'meta.xml.jade');
 	opts.filename = this.getFullPath('staticResources', `${options.apiName}.resource-meta.xml`);
 	opts._package = this.addPackageMember('StaticResource', options.apiName);
 
