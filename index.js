@@ -124,6 +124,29 @@ Plugin.prototype.SinglePageApp = function (options, compiler) {
 	}
 };
 
+Plugin.prototype.SinglePageAppDev = function (options, compiler) {
+	var opts = _.clone(options);
+	opts.inject = false;
+	opts.template = path.join(TEMPLATE_DIR, 'ApexPage', 'SinglePageAppDev.page.jade');
+
+	if (opts.apiName == null) {
+		opts.apiName = 'SinglePageApp';
+	}
+	opts.filename = this.getFullPath(`${options.apiName}.page`);
+
+	opts.controller = _.extend({
+		apiName: options.apiName + 'Controller',
+	}, opts.controller);
+
+	opts = _.extend({
+		mobile: false,
+		title: 'Visualforce App',
+		unsupportedBrowser: false
+	}, opts);
+
+	new HtmlWebpackPlugin(opts).apply(compiler);
+};
+
 Plugin.prototype.ApexClassMeta = function (options, compiler) {
 	var opts = _.clone(options);
 	opts.inject = false;
