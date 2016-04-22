@@ -1,6 +1,6 @@
 {
   "name": "salesforce-template-webpack-plugin",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Webpack plugin for generating Salesforce metadata",
   "main": "index.js",
   "scripts": {
