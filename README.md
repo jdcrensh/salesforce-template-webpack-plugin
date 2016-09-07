@@ -1,6 +1,6 @@
 # salesforce-template-webpack-plugin
 
-[![npm version](https://img.shields.io/npm/v/salesforce-template-webpack-plugin.svg?maxAge=600000)](https://www.npmjs.com/package/salesforce-template-webpack-plugin)
+[![npm version](https://img.shields.io/npm/v/salesforce-template-webpack-plugin.svg?maxAge=86400000)](https://www.npmjs.com/package/salesforce-template-webpack-plugin)
 
 Extension of HtmlWebpackPlugin with templates for generating Salesforce
 metadata.
